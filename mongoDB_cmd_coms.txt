@@ -1,0 +1,505 @@
+Microsoft Windows [Version 10.0.26100.4061]
+(c) Microsoft Corporation. Wszelkie prawa zastrzeżone.
+
+C:\Users\mmaly>mongosh
+Current Mongosh Log ID: 6826598cd6bf89a8f46c4bcf
+Connecting to:          mongodb://127.0.0.1:27017/?directConnection=true&serverSelectionTimeoutMS=2000&appName=mongosh+2.5.1
+Using MongoDB:          8.0.9
+Using Mongosh:          2.5.1
+
+For mongosh info see: https://www.mongodb.com/docs/mongodb-shell/
+
+------
+   The server generated these startup warnings when booting
+   2025-05-16T00:08:34.218+03:00: Access control is not enabled for the database. Read and write access to data and configuration is unrestricted
+------
+
+test> show dbs
+admin   40.00 KiB
+config  60.00 KiB
+local   40.00 KiB
+test> use mongosh "mongodb+srv://koszmary.ox92tq5.mongodb.net/" --apiVersion 1 --username admin
+switched to db mongosh
+mongosh> db
+mongosh
+mongosh> show dbs
+admin   40.00 KiB
+config  36.00 KiB
+local   40.00 KiB
+mongosh> use blog
+switched to db blog
+blog> db.posts.insertOne({
+...   title: 'Post 1',
+...   body: 'Body of post.',
+...   category: 'News',
+...   likes: 1,
+...   tags: ['news', 'events'],
+...   date: Date()
+... })
+{
+  acknowledged: true,
+  insertedId: ObjectId('68271011d6bf89a8f46c4bd0')
+}
+blog> db.posts.insertMany([
+...   {
+...     title: 'Post 2',
+...     body: 'Body of post.',
+...     category: 'Event',
+...     likes: 2,
+...     tags: ['news', 'events'],
+...     date: Date()
+...   },
+...   {
+...     title: 'Post 3',
+...     body: 'Body of post.',
+...     category: 'Tech',
+...     likes: 3,
+...     tags: ['news', 'events'],
+...     date: Date()
+...   },
+...   {
+...     title: 'Post 4',
+...     body: 'Body of post.',
+...     category: 'Event',
+...     likes: 4,
+...     tags: ['news', 'events'],
+...     date: Date()
+...   },
+...   {
+...     title: 'Post 5',
+...     body: 'Body of post.',
+...     category: 'News',
+...     likes: 5,
+...     tags: ['news', 'events'],
+...     date: Date()
+...   }
+... ])
+{
+  acknowledged: true,
+  insertedIds: {
+    '0': ObjectId('6827102cd6bf89a8f46c4bd1'),
+    '1': ObjectId('6827102cd6bf89a8f46c4bd2'),
+    '2': ObjectId('6827102cd6bf89a8f46c4bd3'),
+    '3': ObjectId('6827102cd6bf89a8f46c4bd4')
+  }
+}
+blog> db.posts.find({category:"News"})
+[
+  {
+    _id: ObjectId('68271011d6bf89a8f46c4bd0'),
+    title: 'Post 1',
+    body: 'Body of post.',
+    category: 'News',
+    likes: 1,
+    tags: [ 'news', 'events' ],
+    date: 'Fri May 16 2025 13:14:41 GMT+0300 (czas wschodnioeuropejski letni)'
+  },
+  {
+    _id: ObjectId('6827102cd6bf89a8f46c4bd4'),
+    title: 'Post 5',
+    body: 'Body of post.',
+    category: 'News',
+    likes: 5,
+    tags: [ 'news', 'events' ],
+    date: 'Fri May 16 2025 13:15:08 GMT+0300 (czas wschodnioeuropejski letni)'
+  }
+]
+blog> db.posts.find().sort({ title: 1 })
+[
+  {
+    _id: ObjectId('68271011d6bf89a8f46c4bd0'),
+    title: 'Post 1',
+    body: 'Body of post.',
+    category: 'News',
+    likes: 1,
+    tags: [ 'news', 'events' ],
+    date: 'Fri May 16 2025 13:14:41 GMT+0300 (czas wschodnioeuropejski letni)'
+  },
+  {
+    _id: ObjectId('6827102cd6bf89a8f46c4bd1'),
+    title: 'Post 2',
+    body: 'Body of post.',
+    category: 'Event',
+    likes: 2,
+    tags: [ 'news', 'events' ],
+    date: 'Fri May 16 2025 13:15:08 GMT+0300 (czas wschodnioeuropejski letni)'
+  },
+  {
+    _id: ObjectId('6827102cd6bf89a8f46c4bd2'),
+    title: 'Post 3',
+    body: 'Body of post.',
+    category: 'Tech',
+    likes: 3,
+    tags: [ 'news', 'events' ],
+    date: 'Fri May 16 2025 13:15:08 GMT+0300 (czas wschodnioeuropejski letni)'
+  },
+  {
+    _id: ObjectId('6827102cd6bf89a8f46c4bd3'),
+    title: 'Post 4',
+    body: 'Body of post.',
+    category: 'Event',
+    likes: 4,
+    tags: [ 'news', 'events' ],
+    date: 'Fri May 16 2025 13:15:08 GMT+0300 (czas wschodnioeuropejski letni)'
+  },
+  {
+    _id: ObjectId('6827102cd6bf89a8f46c4bd4'),
+    title: 'Post 5',
+    body: 'Body of post.',
+    category: 'News',
+    likes: 5,
+    tags: [ 'news', 'events' ],
+    date: 'Fri May 16 2025 13:15:08 GMT+0300 (czas wschodnioeuropejski letni)'
+  }
+]
+blog> db.posts.find().sort({ title: 1 })
+[
+  {
+    _id: ObjectId('68271011d6bf89a8f46c4bd0'),
+    title: 'Post 1',
+    body: 'Body of post.',
+    category: 'News',
+    likes: 1,
+    tags: [ 'news', 'events' ],
+    date: 'Fri May 16 2025 13:14:41 GMT+0300 (czas wschodnioeuropejski letni)'
+  },
+  {
+    _id: ObjectId('6827102cd6bf89a8f46c4bd1'),
+    title: 'Post 2',
+    body: 'Body of post.',
+    category: 'Event',
+    likes: 2,
+    tags: [ 'news', 'events' ],
+    date: 'Fri May 16 2025 13:15:08 GMT+0300 (czas wschodnioeuropejski letni)'
+  },
+  {
+    _id: ObjectId('6827102cd6bf89a8f46c4bd2'),
+    title: 'Post 3',
+    body: 'Body of post.',
+    category: 'Tech',
+    likes: 3,
+    tags: [ 'news', 'events' ],
+    date: 'Fri May 16 2025 13:15:08 GMT+0300 (czas wschodnioeuropejski letni)'
+  },
+  {
+    _id: ObjectId('6827102cd6bf89a8f46c4bd3'),
+    title: 'Post 4',
+    body: 'Body of post.',
+    category: 'Event',
+    likes: 4,
+    tags: [ 'news', 'events' ],
+    date: 'Fri May 16 2025 13:15:08 GMT+0300 (czas wschodnioeuropejski letni)'
+  },
+  {
+    _id: ObjectId('6827102cd6bf89a8f46c4bd4'),
+    title: 'Post 5',
+    body: 'Body of post.',
+    category: 'News',
+    likes: 5,
+    tags: [ 'news', 'events' ],
+    date: 'Fri May 16 2025 13:15:08 GMT+0300 (czas wschodnioeuropejski letni)'
+  }
+]
+blog> db.posts.find().count()
+... db.posts.find({ category: 'news' }).count()
+0
+blog> db.posts.find().count()
+5
+blog>
+
+blog> db.posts.find().count()
+5
+blog> db.posts.find().limit(2)
+[
+  {
+    _id: ObjectId('68271011d6bf89a8f46c4bd0'),
+    title: 'Post 1',
+    body: 'Body of post.',
+    category: 'News',
+    likes: 1,
+    tags: [ 'news', 'events' ],
+    date: 'Fri May 16 2025 13:14:41 GMT+0300 (czas wschodnioeuropejski letni)'
+  },
+  {
+    _id: ObjectId('6827102cd6bf89a8f46c4bd1'),
+    title: 'Post 2',
+    body: 'Body of post.',
+    category: 'Event',
+    likes: 2,
+    tags: [ 'news', 'events' ],
+    date: 'Fri May 16 2025 13:15:08 GMT+0300 (czas wschodnioeuropejski letni)'
+  }
+]
+blog> db.posts.find().limit(2).sort({ title: 1 })
+[
+  {
+    _id: ObjectId('68271011d6bf89a8f46c4bd0'),
+    title: 'Post 1',
+    body: 'Body of post.',
+    category: 'News',
+    likes: 1,
+    tags: [ 'news', 'events' ],
+    date: 'Fri May 16 2025 13:14:41 GMT+0300 (czas wschodnioeuropejski letni)'
+  },
+  {
+    _id: ObjectId('6827102cd6bf89a8f46c4bd1'),
+    title: 'Post 2',
+    body: 'Body of post.',
+    category: 'Event',
+    likes: 2,
+    tags: [ 'news', 'events' ],
+    date: 'Fri May 16 2025 13:15:08 GMT+0300 (czas wschodnioeuropejski letni)'
+  }
+]
+blog> db.posts.findOne({ likes: { $gt: 3 } })
+{
+  _id: ObjectId('6827102cd6bf89a8f46c4bd3'),
+  title: 'Post 4',
+  body: 'Body of post.',
+  category: 'Event',
+  likes: 4,
+  tags: [ 'news', 'events' ],
+  date: 'Fri May 16 2025 13:15:08 GMT+0300 (czas wschodnioeuropejski letni)'
+}
+blog> db.posts.updateOne({ title: 'Post 1' },
+... {
+...   $set: {
+...     category: 'Tech'
+...   }
+... })
+{
+  acknowledged: true,
+  insertedId: null,
+  matchedCount: 1,
+  modifiedCount: 1,
+  upsertedCount: 0
+}
+blog> db.posts.updateOne({title: "Post 1"}, {likes: 2})
+MongoInvalidArgumentError: Update document requires atomic operators
+blog> db.posts.updateOne({ title: 'Post 6' },
+... {
+...   $set: {
+...     title: 'Post 6',
+...     body: 'Body of post.',
+...     category: 'News'
+...   }
+... },
+... {
+...   upsert: true
+... })
+{
+  acknowledged: true,
+  insertedId: ObjectId('6827116168a742a15b1fb9cf'),
+  matchedCount: 0,
+  modifiedCount: 0,
+  upsertedCount: 1
+}
+blog> db.posts.updateOne({ title: 'Post 1' },
+... {
+...   $inc: {
+...     likes: 2
+...   }
+... })
+{
+  acknowledged: true,
+  insertedId: null,
+  matchedCount: 1,
+  modifiedCount: 1,
+  upsertedCount: 0
+}
+blog> db.posts.find({title: "Post 1"})
+[
+  {
+    _id: ObjectId('68271011d6bf89a8f46c4bd0'),
+    title: 'Post 1',
+    body: 'Body of post.',
+    category: 'Tech',
+    likes: 3,
+    tags: [ 'news', 'events' ],
+    date: 'Fri May 16 2025 13:14:41 GMT+0300 (czas wschodnioeuropejski letni)'
+  }
+]
+blog> db.posts.updateMany({}, {
+...   $inc: {
+...     likes: 1
+...   }
+... })
+{
+  acknowledged: true,
+  insertedId: null,
+  matchedCount: 6,
+  modifiedCount: 6,
+  upsertedCount: 0
+}
+blog> db.posts.find()
+[
+  {
+    _id: ObjectId('68271011d6bf89a8f46c4bd0'),
+    title: 'Post 1',
+    body: 'Body of post.',
+    category: 'Tech',
+    likes: 4,
+    tags: [ 'news', 'events' ],
+    date: 'Fri May 16 2025 13:14:41 GMT+0300 (czas wschodnioeuropejski letni)'
+  },
+  {
+    _id: ObjectId('6827102cd6bf89a8f46c4bd1'),
+    title: 'Post 2',
+    body: 'Body of post.',
+    category: 'Event',
+    likes: 3,
+    tags: [ 'news', 'events' ],
+    date: 'Fri May 16 2025 13:15:08 GMT+0300 (czas wschodnioeuropejski letni)'
+  },
+  {
+    _id: ObjectId('6827102cd6bf89a8f46c4bd2'),
+    title: 'Post 3',
+    body: 'Body of post.',
+    category: 'Tech',
+    likes: 4,
+    tags: [ 'news', 'events' ],
+    date: 'Fri May 16 2025 13:15:08 GMT+0300 (czas wschodnioeuropejski letni)'
+  },
+  {
+    _id: ObjectId('6827102cd6bf89a8f46c4bd3'),
+    title: 'Post 4',
+    body: 'Body of post.',
+    category: 'Event',
+    likes: 5,
+    tags: [ 'news', 'events' ],
+    date: 'Fri May 16 2025 13:15:08 GMT+0300 (czas wschodnioeuropejski letni)'
+  },
+  {
+    _id: ObjectId('6827102cd6bf89a8f46c4bd4'),
+    title: 'Post 5',
+    body: 'Body of post.',
+    category: 'News',
+    likes: 6,
+    tags: [ 'news', 'events' ],
+    date: 'Fri May 16 2025 13:15:08 GMT+0300 (czas wschodnioeuropejski letni)'
+  },
+  {
+    _id: ObjectId('6827116168a742a15b1fb9cf'),
+    title: 'Post 6',
+    body: 'Body of post.',
+    category: 'News',
+    likes: 1
+  }
+]
+blog> db.posts.deleteOne({ title: 'Post 6' })
+{ acknowledged: true, deletedCount: 1 }
+blog> db.posts.find()
+[
+  {
+    _id: ObjectId('68271011d6bf89a8f46c4bd0'),
+    title: 'Post 1',
+    body: 'Body of post.',
+    category: 'Tech',
+    likes: 4,
+    tags: [ 'news', 'events' ],
+    date: 'Fri May 16 2025 13:14:41 GMT+0300 (czas wschodnioeuropejski letni)'
+  },
+  {
+    _id: ObjectId('6827102cd6bf89a8f46c4bd1'),
+    title: 'Post 2',
+    body: 'Body of post.',
+    category: 'Event',
+    likes: 3,
+    tags: [ 'news', 'events' ],
+    date: 'Fri May 16 2025 13:15:08 GMT+0300 (czas wschodnioeuropejski letni)'
+  },
+  {
+    _id: ObjectId('6827102cd6bf89a8f46c4bd2'),
+    title: 'Post 3',
+    body: 'Body of post.',
+    category: 'Tech',
+    likes: 4,
+    tags: [ 'news', 'events' ],
+    date: 'Fri May 16 2025 13:15:08 GMT+0300 (czas wschodnioeuropejski letni)'
+  },
+  {
+    _id: ObjectId('6827102cd6bf89a8f46c4bd3'),
+    title: 'Post 4',
+    body: 'Body of post.',
+    category: 'Event',
+    likes: 5,
+    tags: [ 'news', 'events' ],
+    date: 'Fri May 16 2025 13:15:08 GMT+0300 (czas wschodnioeuropejski letni)'
+  },
+  {
+    _id: ObjectId('6827102cd6bf89a8f46c4bd4'),
+    title: 'Post 5',
+    body: 'Body of post.',
+    category: 'News',
+    likes: 6,
+    tags: [ 'news', 'events' ],
+    date: 'Fri May 16 2025 13:15:08 GMT+0300 (czas wschodnioeuropejski letni)'
+  }
+]
+blog> db.posts.deleteMany({ category: 'Tech' })
+{ acknowledged: true, deletedCount: 2 }
+blog> db.posts.find()
+[
+  {
+    _id: ObjectId('6827102cd6bf89a8f46c4bd1'),
+    title: 'Post 2',
+    body: 'Body of post.',
+    category: 'Event',
+    likes: 3,
+    tags: [ 'news', 'events' ],
+    date: 'Fri May 16 2025 13:15:08 GMT+0300 (czas wschodnioeuropejski letni)'
+  },
+  {
+    _id: ObjectId('6827102cd6bf89a8f46c4bd3'),
+    title: 'Post 4',
+    body: 'Body of post.',
+    category: 'Event',
+    likes: 5,
+    tags: [ 'news', 'events' ],
+    date: 'Fri May 16 2025 13:15:08 GMT+0300 (czas wschodnioeuropejski letni)'
+  },
+  {
+    _id: ObjectId('6827102cd6bf89a8f46c4bd4'),
+    title: 'Post 5',
+    body: 'Body of post.',
+    category: 'News',
+    likes: 6,
+    tags: [ 'news', 'events' ],
+    date: 'Fri May 16 2025 13:15:08 GMT+0300 (czas wschodnioeuropejski letni)'
+  }
+]
+blog> db.posts.find({ views: { $gt: 2 } })
+... db.posts.find({ views: { $gte: 7 } })
+... db.posts.find({ views: { $lt: 7 } })
+...
+blog> db.posts.find()
+[
+  {
+    _id: ObjectId('6827102cd6bf89a8f46c4bd1'),
+    title: 'Post 2',
+    body: 'Body of post.',
+    category: 'Event',
+    likes: 3,
+    tags: [ 'news', 'events' ],
+    date: 'Fri May 16 2025 13:15:08 GMT+0300 (czas wschodnioeuropejski letni)'
+  },
+  {
+    _id: ObjectId('6827102cd6bf89a8f46c4bd3'),
+    title: 'Post 4',
+    body: 'Body of post.',
+    category: 'Event',
+    likes: 5,
+    tags: [ 'news', 'events' ],
+    date: 'Fri May 16 2025 13:15:08 GMT+0300 (czas wschodnioeuropejski letni)'
+  },
+  {
+    _id: ObjectId('6827102cd6bf89a8f46c4bd4'),
+    title: 'Post 5',
+    body: 'Body of post.',
+    category: 'News',
+    likes: 6,
+    tags: [ 'news', 'events' ],
+    date: 'Fri May 16 2025 13:15:08 GMT+0300 (czas wschodnioeuropejski letni)'
+  }
+]
+blog>
