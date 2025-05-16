@@ -1,0 +1,23 @@
+Microsoft Windows [Version 10.0.26100.4061]
+(c) Microsoft Corporation. Wszelkie prawa zastrzeżone.
+
+C:\Users\mmaly>node
+Welcome to Node.js v22.15.1.
+Type ".help" for more information.
+> console.log('Hello World')
+Hello World
+undefined
+> const name = 'John'
+undefined
+> console.log(name)
+John
+undefined
+> const greet = () => 'Hello ${name}'
+undefined
+> greet()
+'Hello ${name}'
+> name
+'John'
+> greet()
+'Hello ${name}'
+>
