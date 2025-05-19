@@ -1,0 +1,97 @@
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 2rem;
+  background-color: #001f3f; /* Ciemnoniebieski (navy) kolor */
+  color: white;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+.nav-logo a {
+  color: white;
+  font-size: 1.5rem;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+.nav-operations {
+  display: flex;
+  gap: 1.5rem;
+}
+
+.nav-operations a {
+  color: white;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: all 0.3s ease;
+}
+
+.nav-operations a:hover {
+  color: #3498db;
+  transform: translateY(-2px);
+}
+
+.nav-auth a {
+  color: white;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.profile-dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.profile-link {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  right: 0;
+  background-color: #f9f9f9;
+  min-width: 200px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.dropdown-content a {
+  color: #333;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  transition: background-color 0.3s;
+}
+
+.dropdown-content a:hover {
+  background-color: #f1f1f1;
+}
+
+.profile-dropdown:hover .dropdown-content {
+  display: block;
+}
+
+/* Dodatkowy styl dla linku "Account" */
+.logged-in .login-text {
+  display: none;
+}
+
+.logged-in .account-text {
+  display: inline;
+}
+
+.account-text {
+  display: none;
+}

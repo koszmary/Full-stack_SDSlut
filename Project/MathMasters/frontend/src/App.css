@@ -1,0 +1,42 @@
+.App {
+  text-align: center;
+  min-height: 100vh;
+  background-color: #f5f5dc;
+  color: #001f3f;
+}
+
+.navbar {
+  background-color: #001f3f;
+  padding: 1rem;
+  display: flex;
+  justify-content: space-around;
+}
+
+.navbar a {
+  color: white;
+  text-decoration: none;
+  font-size: 1.2rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.main-content {
+  padding: 2rem;
+}
+
+.page {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 1rem;
+}
+
+.practice-button {
+  display: inline-block;
+  margin-top: 1rem;
+  padding: 0.5rem 1rem;
+  background-color: #0074D9;
+  color: white;
+  border-radius: 4px;
+  text-decoration: none;
+}

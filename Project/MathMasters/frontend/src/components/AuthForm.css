@@ -1,0 +1,190 @@
+/* Główne style kontenera */
+.auth-container {
+  max-width: 500px;
+  margin: 2rem auto;
+  padding: 2.5rem;
+  background: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+  border: 1px solid #e2e8f0;
+}
+
+/* Nagłówek formularza */
+.auth-container h2 {
+  text-align: center;
+  margin-bottom: 2rem;
+  color: #2d3748;
+  font-size: 1.8rem;
+  font-weight: 600;
+}
+
+/* Grupy formularza */
+.form-group {
+  margin-bottom: 1.75rem;
+  position: relative;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 0.75rem;
+  font-weight: 500;
+  color: #4a5568;
+  font-size: 0.95rem;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+/* Pola input */
+.form-group input {
+  width: 100%;
+  padding: 0.9rem 1rem;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+  background-color: #f8fafc;
+}
+
+.form-group input:focus {
+  outline: none;
+  border-color: #4299e1;
+  box-shadow: 0 0 0 3px rgba(66, 153, 225, 0.15);
+  background-color: #ffffff;
+}
+
+/* Ikony w formularzu */
+.form-group .icon {
+  color: #718096;
+  font-size: 1.1rem;
+}
+
+/* Przycisk */
+.auth-btn {
+  width: 100%;
+  padding: 1rem;
+  background-color: #4299e1;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 1.05rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  margin-top: 1rem;
+}
+
+.auth-btn:hover {
+  background-color: #3182ce;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(49, 130, 206, 0.25);
+}
+
+.auth-btn:active {
+  transform: translateY(0);
+}
+
+/* Stopka formularza */
+.auth-footer {
+  text-align: center;
+  margin-top: 2rem;
+  color: #718096;
+  font-size: 0.95rem;
+}
+
+.auth-footer a {
+  color: #4299e1;
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.2s;
+}
+
+.auth-footer a:hover {
+  color: #3182ce;
+  text-decoration: underline;
+}
+
+/* Walidacja */
+.error-message {
+  color: #e53e3e;
+  font-size: 0.85rem;
+  margin-top: 0.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.form-group.error input {
+  border-color: #e53e3e;
+}
+
+.form-group.error input:focus {
+  box-shadow: 0 0 0 3px rgba(229, 62, 62, 0.15);
+}
+
+/* Responsywność */
+@media (max-width: 600px) {
+  .auth-container {
+    padding: 1.75rem;
+    margin: 1.5rem;
+  }
+  
+  .auth-container h2 {
+    font-size: 1.5rem;
+  }
+  
+  .form-group input {
+    padding: 0.8rem;
+  }
+  
+  .auth-btn {
+    padding: 0.9rem;
+  }
+}
+
+/* Animacje */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.auth-container {
+  animation: fadeIn 0.4s ease-out forwards;
+}
+
+/* Dodatkowe style dla checkboxa */
+.remember-me {
+  display: flex;
+  align-items: center;
+  margin: 1.5rem 0;
+}
+
+.remember-me input {
+  width: auto;
+  margin-right: 0.75rem;
+}
+
+.remember-me label {
+  margin-bottom: 0;
+  font-size: 0.9rem;
+  color: #4a5568;
+}
+
+/* Style dla linku "Zapomniałeś hasła?" */
+.forgot-password {
+  display: block;
+  text-align: right;
+  margin-top: -0.5rem;
+  margin-bottom: 1.5rem;
+  font-size: 0.9rem;
+  color: #4299e1;
+  text-decoration: none;
+}
+
+.forgot-password:hover {
+  text-decoration: underline;
+}
