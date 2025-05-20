@@ -28,29 +28,28 @@ const Navbar = ({ isAuthenticated, onLogout }) => {
       </div>
 
       <div className="nav-auth">
-        {isAuthenticated ? (
-          <div className="profile-dropdown">
-            <Link to="/account" className="profile-link">
-              <FaUser /> Account
+        <div className="profile-link">
+          <Link to={isAuthenticated ? "/account" : "/login"}>
+            <FaUser /> Account
+          </Link>
+        </div>
+        
+        {isAuthenticated && (
+          <div className="dropdown-content">
+            <Link to="/account">
+              <FaChartLine /> Progress Stats
             </Link>
-            <div className="dropdown-content">
-              <Link to="/account">
-                <FaChartLine /> Progress Stats
-              </Link>
-              <Link to="/account">
-                <FaTrophy /> Achievements
-              </Link>
-              <Link to="/account">
-                <FaCalendarAlt /> Streaks
-              </Link>
-              <div className="dropdown-divider"></div>
-              <button onClick={onLogout} className="dropdown-logout">
-                <FaSignOutAlt /> Logout
-              </button>
-            </div>
+            <Link to="/account">
+              <FaTrophy /> Achievements
+            </Link>
+            <Link to="/account">
+              <FaCalendarAlt /> Streaks
+            </Link>
+            <div className="dropdown-divider"></div>
+            <button onClick={onLogout} className="dropdown-logout">
+              <FaSignOutAlt /> Logout
+            </button>
           </div>
-        ) : (
-          <Link to="/login"><FaUser /> Login</Link>
         )}
       </div>
     </nav>

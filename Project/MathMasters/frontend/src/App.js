@@ -6,6 +6,7 @@ import HomePage from './pages/HomePage';
 import LoginPage from './pages/LoginPage';
 import RegisterPage from './pages/RegisterPage';
 import PracticePage from './pages/PracticePage';
+import AccountPage from './pages/AccountPage';
 import './App.css';
 
 function App() {
@@ -64,7 +65,7 @@ function App() {
               element={
                 !isAuthenticated ? 
                   <LoginPage onLogin={handleLogin} /> : 
-                  <Navigate to="/practice" replace />
+                  <Navigate to="/account" replace />
               } 
             />
             <Route 
@@ -72,10 +73,17 @@ function App() {
               element={
                 !isAuthenticated ? 
                   <RegisterPage onRegister={handleLogin} /> : 
-                  <Navigate to="/practice" replace />
+                  <Navigate to="/account" replace />
               } 
             />
-            {/* Zmienione - dostęp bez logowania */}
+            <Route 
+              path="/account" 
+              element={
+                isAuthenticated ? 
+                  <AccountPage /> : 
+                  <Navigate to="/login" replace />
+              } 
+            />
             <Route path="/practice/:operation?" element={<PracticePage />} />
             <Route path="*" element={<Navigate to="/" replace />} />
           </Routes>

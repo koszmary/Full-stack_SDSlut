@@ -20,11 +20,24 @@ router.post('/register', async (req, res) => {
 // Logowanie użytkownika
 router.post('/login', async (req, res) => {
   try {
+    if (!req.body.email || !req.body.password) {
+      return res.status(400).send({ error: 'Email and password required' });
+    }
+    
     const user = await User.findByCredentials(req.body.email, req.body.password);
     const token = await user.generateAuthToken();
-    res.send({ user, token });
+    
+    res.send({ 
+      user: { 
+        _id: user._id,
+        email: user.email,
+        bestStreak: user.bestStreak 
+      }, 
+      token 
+    });
   } catch (err) {
-    res.status(400).send({ error: 'Invalid login credentials' });
+    console.error('Login error:', err);
+    res.status(401).send({ error: 'Invalid login credentials' });
   }
 });
 

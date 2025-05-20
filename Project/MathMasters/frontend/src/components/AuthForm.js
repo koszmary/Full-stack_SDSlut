@@ -1,28 +1,12 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
 
-const AuthForm = ({ isLogin }) => {
+const AuthForm = ({ isLogin, onSubmit, isLoading }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [error, setError] = useState('');
-  const navigate = useNavigate();
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
-    try {
-      const endpoint = isLogin ? '/api/auth/login' : '/api/auth/register';
-      const response = await axios.post(`http://localhost:5000${endpoint}`, {
-        email,
-        password
-      });
-
-      // Zapisz token i przekieruj
-      localStorage.setItem('token', response.data.token);
-      navigate('/practice');
-    } catch (err) {
-      setError(err.response?.data?.error || 'Something went wrong');
-    }
+    onSubmit({ email, password });
   };
 
   return (
@@ -41,9 +25,8 @@ const AuthForm = ({ isLogin }) => {
         placeholder="Password"
         required
       />
-      {error && <p className="error">{error}</p>}
-      <button type="submit">
-        {isLogin ? 'Login' : 'Register'}
+      <button type="submit" disabled={isLoading}>
+        {isLoading ? 'Loading...' : isLogin ? 'Login' : 'Register'}
       </button>
     </form>
   );

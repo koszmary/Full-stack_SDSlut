@@ -13,18 +13,20 @@ const MathGame = () => {
   const [bestStreak, setBestStreak] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
 
-  // Lista dostępnych operacji
   const operations = ['add', 'subtract', 'multiply', 'divide'];
 
   useEffect(() => {
-    generateNewProblem();
-    fetchUserData();
-  }, [operation]);
+  generateNewProblem();
+  fetchUserData();
+}, [operation]);
 
   const fetchUserData = async () => {
     try {
       const token = localStorage.getItem('token');
-      if (!token) return;
+      if (!token) {
+        console.log('No token found, skipping user data fetch');
+        return;
+      }
 
       const response = await axios.get('http://localhost:5000/api/user/me', {
         headers: {
@@ -36,7 +38,7 @@ const MathGame = () => {
         setBestStreak(response.data.bestStreak);
       }
     } catch (error) {
-      console.error('Error fetching user data:', error.message);
+      console.error('Error fetching user data:', error.response?.data?.message || error.message);
     }
   };
 
@@ -62,8 +64,7 @@ const MathGame = () => {
         n1 = n2 * Math.floor(Math.random() * 10);
         break;
       default:
-        const randomOp = operations[Math.floor(Math.random() * operations.length)];
-        return generateNewProblem(randomOp);
+        return generateNewProblem('add');
     }
 
     setNum1(n1);
@@ -73,8 +74,9 @@ const MathGame = () => {
   };
 
   const checkAnswer = async () => {
-    if (isLoading) return;
+    if (isLoading || !userAnswer) return;
     setIsLoading(true);
+    setMessage('');
 
     try {
       const currentOperation = operations.includes(operation) ? operation : 'add';
@@ -85,6 +87,7 @@ const MathGame = () => {
         case 'subtract': correctAnswer = num1 - num2; break;
         case 'multiply': correctAnswer = num1 * num2; break;
         case 'divide': correctAnswer = num1 / num2; break;
+        default: break;
       }
 
       const isCorrect = Math.abs(parseFloat(userAnswer) - correctAnswer) < 0.001;
@@ -95,8 +98,10 @@ const MathGame = () => {
         setStreak(newStreak);
         setScore(score + 1);
 
-        if (newStreak > bestStreak) {
+        try {
           await updateBestStreak(newStreak);
+        } catch (error) {
+          console.error('Failed to update streak:', error);
         }
         
         setTimeout(generateNewProblem, 1000);
@@ -116,9 +121,12 @@ const MathGame = () => {
   const updateBestStreak = async (newStreak) => {
     try {
       const token = localStorage.getItem('token');
-      if (!token) return;
+      if (!token) {
+        console.log('No token, skipping streak update');
+        return;
+      }
 
-      await axios.patch(
+      const response = await axios.patch(
         'http://localhost:5000/api/user/streak',
         { streak: newStreak },
         {
@@ -127,9 +135,12 @@ const MathGame = () => {
           }
         }
       );
-      setBestStreak(newStreak);
+      
+      if (response.data?.bestStreak) {
+        setBestStreak(response.data.bestStreak);
+      }
     } catch (error) {
-      console.error('Error updating streak:', error);
+      console.error('Error updating streak:', error.response?.data?.message || error.message);
       throw error;
     }
   };
@@ -159,34 +170,68 @@ const MathGame = () => {
   };
 
   return (
-    <div className="card">
-      <h2>{getOperationName()}</h2>
-      <div style={{ fontSize: '2em', margin: '20px 0' }}>
+    <div style={{ 
+      maxWidth: '500px', 
+      margin: '0 auto', 
+      padding: '20px',
+      backgroundColor: 'white',
+      border: '1px solid #ddd',
+      borderRadius: '8px',
+      boxShadow: '0 2px 4px rgba(0,0,0,0.1)'
+    }}>
+      <h2 style={{ textAlign: 'center' }}>{getOperationName()}</h2>
+      <div style={{ 
+        fontSize: '2em', 
+        margin: '20px 0',
+        textAlign: 'center' 
+      }}>
         {num1} {getOperationSymbol()} {num2} =
       </div>
-      <input
-        type="number"
-        value={userAnswer}
-        onChange={(e) => setUserAnswer(e.target.value)}
-        onKeyPress={(e) => e.key === 'Enter' && !isLoading && checkAnswer()}
-        style={{ padding: '10px', fontSize: '1.2em' }}
-        disabled={isLoading}
-      />
-      <button 
-        className="button-primary" 
-        onClick={checkAnswer}
-        disabled={isLoading || !userAnswer}
-      >
-        {isLoading ? 'Checking...' : 'Check'}
-      </button>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
+        <input
+          type="number"
+          value={userAnswer}
+          onChange={(e) => setUserAnswer(e.target.value)}
+          onKeyPress={(e) => e.key === 'Enter' && checkAnswer()}
+          style={{ 
+            padding: '10px', 
+            fontSize: '1.2em',
+            borderRadius: '4px',
+            border: '1px solid #ccc'
+          }}
+          disabled={isLoading}
+        />
+        <button 
+          onClick={checkAnswer}
+          disabled={isLoading || !userAnswer}
+          style={{
+            padding: '10px',
+            fontSize: '1em',
+            backgroundColor: isLoading ? '#ccc' : '#007bff',
+            color: 'white',
+            border: 'none',
+            borderRadius: '4px',
+            cursor: 'pointer'
+          }}
+        >
+          {isLoading ? 'Checking...' : 'Check'}
+        </button>
+      </div>
       
       {message && (
-        <p style={{ color: message.includes('Correct') ? 'green' : 'red' }}>
+        <p style={{ 
+          color: message.includes('Correct') ? 'green' : 'red',
+          textAlign: 'center',
+          margin: '15px 0'
+        }}>
           {message}
         </p>
       )}
       
-      <div style={{ marginTop: '20px' }}>
+      <div style={{ 
+        marginTop: '20px',
+        textAlign: 'center'
+      }}>
         <p>Current Streak: {streak}</p>
         <p>Best Streak: {bestStreak}</p>
         <p>Total Correct: {score}</p>
